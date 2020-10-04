@@ -52,7 +52,7 @@ La résolution temporelle des CDRs de chaque abonné dépend de sa
 fréquence d’utilisation du réseau mobile.
 </p>
 
-<img src="img/spatial_resolution.png" alt="La résolution spatiale des CDRs dépend dépend de la distribution géographique des antennes relais." width="80%" />
+<img src="img/spatial_resolution.png" alt="La résolution spatiale des CDRs dépend dépend de la distribution géographique des antennes relais." width="30%" />
 <p class="caption">
 La résolution spatiale des CDRs dépend dépend de la distribution
 géographique des antennes relais.
@@ -73,8 +73,72 @@ que les indicateurs CDR ont été produits, ils sont conçus pour être
 partagés en externe avec d’autres parties prenantes, qui peuvent les
 utiliser dans leur propres analyses.
 
-Note that the `echo = FALSE` parameter was added to the code chunk to
-prevent printing of the R code that generated the plot.
+    presence_or=read.csv("data/africell/afri_pres_kin_norm.csv") # read the csv file
+
+    dim(presence_or) # montre le nombre de lignes et de colonnes.
+
+    ## [1] 7708    3
+
+    head(presence_or) # montre les première lignes et de colonnes.
+
+    ##                F_id       DATE pres_norm
+    ## 1 relation/10704911 2020-02-01  3.420011
+    ## 2 relation/10721872 2020-02-01  6.462922
+    ## 3 relation/10720731 2020-02-01  5.479898
+    ## 4 relation/10722139 2020-02-01  5.288341
+    ## 5 relation/10650548 2020-02-01  4.357150
+    ## 6 relation/10718886 2020-02-01  6.292042
+
+    library(rgdal)
+    hz_or=readOGR("data/poly/healthzones_adm1.shp")
+
+    ## OGR data source with driver: ESRI Shapefile 
+    ## Source: "C:\Users\Xaviervollenweider\Documents\Flowminder\COVID\DRC\hand_over\data\poly\healthzones_adm1.shp", layer: "healthzones_adm1"
+    ## with 519 features
+    ## It has 11 fields
+
+    names(hz_or)
+
+    ##  [1] "F_id"       "attributio" "boundary"   "health_lev" "name"      
+    ##  [6] "ref"        "ref_dhis2"  "source"     "type"       "ADM1_FR"   
+    ## [11] "ADM1_PCODE"
+
+    dim(hz_or)
+
+    ## [1] 519  11
+
+    plot(hz_or)
+
+![](hand_over_1_files/figure-markdown_strict/sp-load-1.png)
+
+    library(dplyr)
+    presence=presence_or%>%
+      left_join(hz_or@data%>%
+                  select(F_id,name,ADM1_FR),
+                by="F_id")%>%
+      mutate(DATE=as.Date(DATE))
+
+    library(ggplot2)
+    g=ggplot()+
+      geom_line(data=presence%>%
+                  filter(name=="Gombe"),
+                aes(x = DATE, 
+                    y = pres_norm,
+                    group=name))
+    g
+
+![](hand_over_1_files/figure-markdown_strict/gg-base-1.png)
+
+    g=g+scale_x_date(date_breaks = "month",
+                     date_labels = "%B")
+    g
+
+![](hand_over_1_files/figure-markdown_strict/gg-x-axis-1.png)
+
+    g=g+geom_hline(yintercept = 0, colour = "grey50") 
+    g
+
+![](hand_over_1_files/figure-markdown_strict/gg-horizontal-line-1.png)
 
 [1] Ce travail a été réalisé avec le soutien financier de la Division
 Sécurité Humaine du Département Fédéral des Affaires Étrangères de la
