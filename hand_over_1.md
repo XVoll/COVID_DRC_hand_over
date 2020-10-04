@@ -27,18 +27,12 @@ lien](https://github.com/Flowminder/COVID-19/tree/c9b81d2af6404af2a5c78f0b71bcee
 Bref aperçu des données CDRs
 ----------------------------
 
-    # !["Caption for the picture"]()
-    knitr::include_graphics("img/value_chain.png")
-
-<img src="img/value_chain.png" alt="Cycle de valeurs des données CDRs" width="100%" />
+<img src="img/value_chain.png" alt="Cycle de valeurs des données CDRs" width="80%" />
 <p class="caption">
 Cycle de valeurs des données CDRs
 </p>
 
-    # !["Caption for the picture"]()
-    knitr::include_graphics("img/tower.png")
-
-<img src="img/tower.png" alt="Les CDRs sont générés chaque fois qu'un abonné passe ou reçoit un appel, envoie ou reçoit un SMS ou utilise des données mobiles. Sur l’exemple ci-contre, il n’y aurait que deux localisations dans les données CDR d’appels: un point à l'heure du déjeuné près du lieu de travail de l'abonné, un point le soir près de son lieu de domicile." width="100%" />
+<img src="img/tower.png" alt="Les CDRs sont générés chaque fois qu'un abonné passe ou reçoit un appel, envoie ou reçoit un SMS ou utilise des données mobiles. Sur l’exemple ci-contre, il n’y aurait que deux localisations dans les données CDR d’appels: un point à l'heure du déjeuné près du lieu de travail de l'abonné, un point le soir près de son lieu de domicile." width="80%" />
 <p class="caption">
 Les CDRs sont générés chaque fois qu’un abonné passe ou reçoit un appel,
 envoie ou reçoit un SMS ou utilise des données mobiles. Sur l’exemple
@@ -47,27 +41,18 @@ d’appels: un point à l’heure du déjeuné près du lieu de travail de
 l’abonné, un point le soir près de son lieu de domicile.
 </p>
 
-    # !["Caption for the picture"]()
-    knitr::include_graphics("img/cdr.png")
-
-<img src="img/cdr.png" alt="Exemple de données CDRs (les chiffres montrés ci-dessus sont faut)" width="100%" />
+<img src="img/cdr.png" alt="Exemple de données CDRs (les chiffres montrés ci-dessus sont faut)" width="80%" />
 <p class="caption">
 Exemple de données CDRs (les chiffres montrés ci-dessus sont faut)
 </p>
 
-    # !["Caption for the picture"]()
-    knitr::include_graphics("img/time_resolution.png")
-
-<img src="img/time_resolution.png" alt="La résolution temporelle des CDRs de chaque abonné dépend de sa fréquence d'utilisation du réseau mobile." width="100%" />
+<img src="img/time_resolution.png" alt="La résolution temporelle des CDRs de chaque abonné dépend de sa fréquence d'utilisation du réseau mobile." width="80%" />
 <p class="caption">
 La résolution temporelle des CDRs de chaque abonné dépend de sa
 fréquence d’utilisation du réseau mobile.
 </p>
 
-    # !["Caption for the picture"]()
-    knitr::include_graphics("img/spatial_resolution.png")
-
-<img src="img/spatial_resolution.png" alt="La résolution spatiale des CDRs dépend dépend de la distribution géographique des antennes relais." width="100%" />
+<img src="img/spatial_resolution.png" alt="La résolution spatiale des CDRs dépend dépend de la distribution géographique des antennes relais." width="80%" />
 <p class="caption">
 La résolution spatiale des CDRs dépend dépend de la distribution
 géographique des antennes relais.
