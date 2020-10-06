@@ -1,3 +1,24 @@
+Prerequisites
+-------------
+
+R est un logiciel d’analyse statistique open-source et gratuit
+permettant le traitement de données, leur analyse et le développement de
+visualisation et de tableaux de bord (dashboard).Rstudio est l’interface
+utilisateur le plus communément utilisé pour programmer en R.
+
+Voici [le lien](https://rstudio.com/products/rstudio/download/#download)
+pour installer R et Rstudio. [Ce
+livre](https://cengel.github.io/R-intro/) en ligne gratuit offre une
+brève introduction à R.
+
+Voici plus de matériel du même auteur que le lien précédent:
+
+-     [ce tutoriel](https://cengel.github.io/R-data-wrangling/) est une introduction à la manipulation des données,
+
+-     [ce tutoriel](https://cengel.github.io/R-spatial/) est une introduction à l'utilisation des données spatiales,
+
+-     et celui-ci[https://cengel.github.io/R-data-viz/] à la visualisation des données
+
 Introduction
 ------------
 
@@ -107,9 +128,15 @@ utiliser dans leur propres analyses.
 
     ## [1] 519  11
 
+    ## png 
+    ##   2
+
     plot(hz_or)
 
-![](hand_over_1_files/figure-markdown_strict/sp-load-1.png)
+<img src="img/hz.png" alt="Zones de santé en RDC " width="30%" />
+<p class="caption">
+Zones de santé en RDC
+</p>
 
     library(dplyr)
     presence=presence_or%>%
@@ -142,9 +169,8 @@ utiliser dans leur propres analyses.
 
 [1] Ce travail a été réalisé avec le soutien financier de la Division
 Sécurité Humaine du Département Fédéral des Affaires Étrangères de la
-Confédération Helvétique et du Programme de Matrice de Suivi de
-Déplacement de la mission l’Organisation Mondiale pour les Migrations en
-RDC. Le contenu de cette page relève de la seule responsabilité de la
-Fondation Flowminder et ne reflète pas nécessairement les vues de la
-Confédération Helvétique ou de l’Organisation Mondiale pour la
-Migration.
+Confédération Suisse et du Programme de Matrice de Suivi de Déplacement
+de la mission l’Organisation Mondiale pour les Migrations en RDC. Le
+contenu de cette page relève de la seule responsabilité de la Fondation
+Flowminder et ne reflète pas nécessairement les vues de la Confédération
+Suisse ou de l’Organisation Mondiale pour la Migration.
