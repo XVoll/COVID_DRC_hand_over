@@ -137,12 +137,10 @@ Les donnée CDR sont utiles qu’une fois comprise comme un des nombreux
 maillons de la chaìne d’information. Le diagramme suivant l’illustre
 sous la forme d’un cycle.
 
-<img src="img/value_chain.png" width="80%" />
-
 Tout commence avec un besoin d’information. Dans le cas présent, la Task
 Force Présidentielle demande des informations sur la mobilité de la
-population afin de disposer d’évaluer l’efficacité des mesures pour
-contenir la Covid-19.
+population afin d’évaluer l’efficacité des mesures pour contenir la
+Covid-19.
 
 Les opérateurs de réseaux mobiles disposent de données bruts, les CDRs,
 qui doivent être traitées de façon sécurisées tout en préservant la
@@ -161,19 +159,28 @@ de décision. Ces derniers seront en mesures de préciser leurs besoins
 d’information afin que le processus décrit ici se répète, améliorant
 ainsi la qualité des informations qu’ils reçoivent.
 
+<img src="img/value_chain.png" width="80%" />
+
 Des CDRs à un indicateur du nombre d’abonnés actifs dans chaque zone de santé
 -----------------------------------------------------------------------------
 
-Flowminder a fourni à Africell des requêtes SQL pour produire des
-agrégats CDR à partir des données CDR brutes. Bien que ces agrégats
-n’exposent aucune information sur les abonnés individuels, ils
-contiennent des informations qui peuvent être considérées comme
-commercialement sensibles, y compris le nombre d’abonnés vus dans une
-région. En traitant les données et en combinant plusieurs agrégats, nous
-pouvons produire des indicateurs de mobilité qui ne contiennent aucune
-information commercialement sensible.
+Nous présentons ci-dessous un premier aperçu des étapes qui vont de *Raw
+CDR* à *Visualisation and Key messages* en se basant sur la
+colloboration avec Africell RDC. Flowminder a fourni à Africell des
+requêtes SQL pour produire des agrégats CDR à partir des données CDR
+brutes. Bien que ces agrégats n’exposent aucune information sur les
+abonnés individuels, ils contiennent des informations qui peuvent être
+considérées comme commercialement sensibles, y compris le nombre
+d’abonnés vus dans une région. En traitant les données et en combinant
+plusieurs agrégats, nous pouvons produire des indicateurs de mobilité
+qui ne contiennent aucune information commercialement sensible.
 
-Nous présentons ci-deouss les étapes principales du processus.
+Nous présentons ci-deouss les étapes principales du processus: 1.
+Africell produit l’agrégat
+‘nombre\_d’abonnés\_par\_zone\_de\_santé\_par\_jour’. 2. Convertir le
+nombre d’abonnés en pourcentage par rapport au nombre médian pendant la
+période référence. 3. Visualiser le nombre d’abonnés au cours du temps
+4. Interpréter les résultats
 
 ### Étape 1: Africell produit l’agrégat ‘nombre\_d’abonnés\_par\_zone\_de\_santé\_par\_jour’.
 
@@ -462,6 +469,24 @@ Et clarifions le noms des axes.
     g
 
 <img src="img/timeline_5.png" width="100%" />
+
+### Etape 4: interpréter les résultats
+
+*Lecture du graphique* Le nombre d’abonnés fréquentant la Gombe a décru
+de plus de 70% lors des deux premières semaines du confinement (moins
+qu’un dimanche normal). La fréquentation a ensuite lentement augmenté
+suite à la réouverture de certains commerces le 21 avril avant de
+rebondir suite à la fin du confinement le 29 juin à des niveaux en
+semaine comparable à celui d’un samedi normal. La trajectoire de retour
+à la normale se poursuit sur les mois de juillets à septembre.
+
+Les mesures ont rapidement eu un impact important et durable sur la
+fréquentation de la Gombe: moins d’abonnés s’y trouvent pendant une même
+journée. Ceci a pu limiter la circulation du virus, mais a pu
+occasionner une baisse de la fréquentation des divers commerces de la
+Gombe et donc une baisse de l’activité économique. Les abonnés dont les
+moyens de subsistance dépendent de leur présence à la Gombe ou de celle
+de clients peuvent avoir subi des pertes de revenus importantes.
 
 [1] Ce travail a été réalisé avec le soutien financier de la Division
 Sécurité Humaine du Département Fédéral des Affaires Étrangères de la
