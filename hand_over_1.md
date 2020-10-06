@@ -101,6 +101,35 @@ En dernier lieu, un appel ou un SMS ne va pas forcément être acheminé
 par l’antenne relais la plus proche: le traffic peut être réorienté vers
 une autre antenne si la plus proche n’a pas la capacité de la gérer.
 
+Confidentialité des données et protection de la sphère privée
+-------------------------------------------------------------
+
+Aucune donée individuelle ne quitte le territoire de la RDC.
+
+Aucune donée individuelle ne quitte le contrôle de Africell RDC. Les
+données sont traitées par Africell RDC sur leur installation et derrière
+leur pare-feu, aucune donnée de niveau individuel ne quitte jamais
+l’installation de Africell RDC.
+
+Aucune information personnellement identifiable, telle que l’identité,
+les données démographiques, l’emplacement, les contacts ou les
+mouvements d’un individu, n’est à aucun moment mise à la disposition du
+gouvernement ou de tout autre tierce partie.
+
+Tous les résultats sont agrégées (par exemple, la densité d’abonnés dans
+une municipalité donnée), ce qui signifie qu’ils ne contiennent aucune
+information sur les abonnés individuels. Faible résolution spatiale et
+temporelle: le nombre de personnes dans une zone de santé donnée sur une
+journée donnée est exprimé en % de la normale. Les zones de moins de 15
+abonnés sont d’ailleurs filtrées avant même le début du traitement des
+données à Africell RDC. Ces données sont entièrement anonymisées.
+
+Cette approche est conforme au Règlement général sur la protection des
+données de l’Union Européenne (EU RGPD 2016/679)
+
+Le code utilisé pour produire les résultats est en accès libre sur
+GitHub pour que tout le monde puisse le consulter.
+
 Le traitement des données CDRs, un maillon de la chaîne d’information
 ---------------------------------------------------------------------
 
@@ -131,35 +160,6 @@ seront que l’un des nombreux paramètres pris en compte par les preneurs
 de décision. Ces derniers seront en mesures de préciser leurs besoins
 d’information afin que le processus décrit ici se répète, améliorant
 ainsi la qualité des informations qu’ils reçoivent.
-
-Confidentialité des données et protection de la sphère privée
--------------------------------------------------------------
-
-Aucune donée individuelle ne quitte le territoire de la RDC.
-
-Aucune donée individuelle ne quitte le contrôle de Africell RDC. Les
-données sont traitées par Africell RDC sur leur installation et derrière
-leur pare-feu, aucune donnée de niveau individuel ne quitte jamais
-l’installation de Africell RDC.
-
-Aucune information personnellement identifiable, telle que l’identité,
-les données démographiques, l’emplacement, les contacts ou les
-mouvements d’un individu, n’est à aucun moment mise à la disposition du
-gouvernement ou de tout autre tierce partie.
-
-Tous les résultats sont agrégées (par exemple, la densité d’abonnés dans
-une municipalité donnée), ce qui signifie qu’ils ne contiennent aucune
-information sur les abonnés individuels. Faible résolution spatiale et
-temporelle: le nombre de personnes dans une zone de santé donnée sur une
-journée donnée est exprimé en % de la normale. Les zones de moins de 15
-abonnés sont d’ailleurs filtrées avant même le début du traitement des
-données à Africell RDC. Ces données sont entièrement anonymisées.
-
-Cette approche est conforme au Règlement général sur la protection des
-données de l’Union Européenne (EU RGPD 2016/679)
-
-Le code utilisé pour produire les résultats est en accès libre sur
-GitHub pour que tout le monde puisse le consulter.
 
 Des CDRs à un indicateur du nombre d’abonnés actifs dans chaque zone de santé
 -----------------------------------------------------------------------------
