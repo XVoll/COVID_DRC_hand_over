@@ -178,9 +178,9 @@ et les sms. Les six champs de données sont:
 -   EVENT\_TYPE: appel (*voice*) ou sms
 -   TIMESTAMP: la date et l’heure (horodatage)
 
-<img src="img/cdr.png" alt="Exemple de données CDRs (les chiffres montrés ci-dessus sont faut)" width="80%" />
+<img src="img/cdr.png" alt="Exemple de données CDRs (les chiffres montrés ci-dessus sont faux)" width="80%" />
 <p class="caption">
-Exemple de données CDRs (les chiffres montrés ci-dessus sont faut)
+Exemple de données CDRs (les chiffres montrés ci-dessus sont faux)
 </p>
 
 La requête SQL est disponible
@@ -212,9 +212,9 @@ systeme.
 nombre de MSISDN uniques. Voir l’exemple ci-dessous, qui contient de
 fausses données. Ce tableau n’est vu que par Africell et Flowminder.
 
-<img src="img/presence_aggregat.png" alt="(les chiffres montrés ci-dessus sont faut)" width="50%" />
+<img src="img/presence_aggregat.png" alt="(les chiffres montrés ci-dessus sont faux)" width="50%" />
 <p class="caption">
-(les chiffres montrés ci-dessus sont faut)
+(les chiffres montrés ci-dessus sont faux)
 </p>
 
 ### Étape 2: Convertir le nombre d’abonnés en pourcentage par rapport au nombre médian pendant la période référence.
@@ -230,10 +230,7 @@ fausses données.
 
 La période de réference et d’analyse est résumée sur le schema suivant.
 
-<img src="img/timeline.png" alt="(les chiffres montrés ci-dessus sont faut)" width="50%" />
-<p class="caption">
-(les chiffres montrés ci-dessus sont faut)
-</p>
+<img src="img/timeline.png" width="50%" />
 
 *Résultat*: Un tableau contenant les colonnes date, zone de santé, le
 nombre de MSISDN uniques exprimé en % changement par rapport à la
@@ -243,9 +240,9 @@ données.
 Par exemple, la ligne 2 signale que à la Gombe le 1er janvier 2020, il y
 avait 10% de plus de MSISDN uniques que durant la période de référence.
 
-<img src="img/presence_perc.png" alt="(les chiffres montrés ci-dessus sont faut)" width="50%" />
+<img src="img/presence_perc.png" alt="(les chiffres montrés ci-dessus sont faux)" width="50%" />
 <p class="caption">
-(les chiffres montrés ci-dessus sont faut)
+(les chiffres montrés ci-dessus sont faux)
 </p>
 
 Sous réserve de l’autorisation explicite de Africell, ce tableau peut
