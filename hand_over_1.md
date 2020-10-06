@@ -1,72 +1,84 @@
-Prerequisites
--------------
-
-R est un logiciel d’analyse statistique open-source et gratuit
-permettant le traitement de données, leur analyse et le développement de
-visualisation et de tableaux de bord (dashboard).Rstudio est l’interface
-utilisateur le plus communément utilisé pour programmer en R.
-
-Voici [le lien](https://rstudio.com/products/rstudio/download/#download)
-pour installer R et Rstudio. [Ce
-livre](https://cengel.github.io/R-intro/) en ligne gratuit offre une
-brève introduction à R.
-
-Voici plus de matériel du même auteur que le lien précédent:
-
--   ce [tutoriel](https://cengel.github.io/R-data-wrangling/) est une
-    introduction à la manipulation des données,
--   ce [tutoriel](https://cengel.github.io/R-spatial/) est une
-    introduction à l’utilisation des données spatiales,
--   et [celui-ci](https://cengel.github.io/R-data-viz/) à la
-    visualisation des données
-
 Introduction
 ------------
 
 Cette page fournit une première introduction à la visualisation des
 indicateurs de mobilité dérivés des enregistrements détaillés des appels
 (ci-après CDRs, de l’anglais *Call detail records*). Après un bref
-survol de la natures des données CDR, nous présentons un scripte R pour
-visualiser. Ce travail s’incrit dans le cadre de la collaboration entre
-la Fondation Flowminder, Vodacom Congo et Africell RDC pour soutenir la
+survol de la natures des données CDR, nous présentons un script R pour
+visualiser les résultats. R est un logiciel d’analyse statistique
+open-source et gratuit permettant le traitement de données, leur analyse
+et le développement de visualisation et de tableaux de bord (dashboard).
+
+Ce travail s’inscrit dans le cadre de la collaboration entre la
+Fondation Flowminder, Vodacom Congo et Africell RDC pour soutenir la
 riposte of COVID-19.[1]
 
-Ces indicateurs de mobilité ont été produits par Africell RDC et la
-Fondation Flowminder pour soutenir la réponse COVID-19 en RDC, avec le
-soutien financier de la Division de la sécurité humaine, qui fait partie
-du Département fédéral des affaires étrangères de la Confédération
-suisse, ainsi que le déplacement Programme de matrice de suivi de
-l’Organisation internationale pour les migrations (OIM) en République
-démocratique du Congo (RDC).
+Prérequis
+---------
 
-Africell a exécuté les requêtes SQL *open-source* de Flowminder afin de
-produire des agrégats de mobilité utilisés plus tard par Flowminder pour
-dériver les indicateurs de mobilité que nous visualiserons ci-dessous.
+L’installation de R est nécessaire pour utiliser les codes qui sont
+présentés sur cette page. Rstudio est l’interface utilisateur le plus
+communément utilisé pour programmer en R. Voici [le
+lien](https://rstudio.com/products/rstudio/download/#download) pour
+installer R et Rstudio.
 
-Les dépôt GitHub où sont stockée les requêtes SQL est disponible à [ce
-lien](https://github.com/Flowminder/COVID-19/tree/c9b81d2af6404af2a5c78f0b71bcee9dcc867279).
+Une compréhension de base de l’environnement R est également requise.
+
+-   [ce tutoriel](https://cengel.github.io/R-intro/) offre une brève
+    introduction à R.
+-   [celui-ci](https://cengel.github.io/R-data-wrangling/) est une
+    introduction à la manipulation des données,
+-   [celui-ci](https://cengel.github.io/R-spatial/) est une introduction
+    à l’utilisation des données spatiales,
+-   [celui-ci](https://cengel.github.io/R-data-viz/) à la visualisation
+    des données
 
 Bref aperçu des données CDRs
 ----------------------------
 
-<img src="img/value_chain.png" alt="Cycle de valeurs des données CDRs" width="80%" />
-<p class="caption">
-Cycle de valeurs des données CDRs
-</p>
+Les données CDRs sont probablement la meilleure source d’information sur
+la mobilité de la population en RDC. Leurs principaux avantages de ces
+données sont:
 
-<img src="img/tower.png" alt="Les CDRs sont générés chaque fois qu'un abonné passe ou reçoit un appel, envoie ou reçoit un SMS ou utilise des données mobiles. Sur l’exemple ci-contre, il n’y aurait que deux localisations dans les données CDR d’appels: un point à l'heure du déjeuné près du lieu de travail de l'abonné, un point le soir près de son lieu de domicile." width="80%" />
-<p class="caption">
-Les CDRs sont générés chaque fois qu’un abonné passe ou reçoit un appel,
-envoie ou reçoit un SMS ou utilise des données mobiles. Sur l’exemple
-ci-contre, il n’y aurait que deux localisations dans les données CDR
-d’appels: un point à l’heure du déjeuné près du lieu de travail de
-l’abonné, un point le soir près de son lieu de domicile.
-</p>
+-   d’être générées automatiquement.
+-   de contenir des milliards de points provenant de millions de
+    personnes, il y a donc une grandes échelles géographiques et
+    temporelles couvertes.
+-   d’être un flux continu, presque en temps réel.
+-   d’être collectées mécaniquement - purement factuelles, sans biais
+    liés à des processus d’interview comme dans les enquêtes de ménages
+    classique.
 
-<img src="img/cdr.png" alt="Exemple de données CDRs (les chiffres montrés ci-dessus sont faut)" width="80%" />
-<p class="caption">
-Exemple de données CDRs (les chiffres montrés ci-dessus sont faut)
-</p>
+Néanmoins, les données CDRs ne donnent qu’un aperçu de la mobilité de la
+population car elles ne portent que sur les abonnés d’un opérateur de
+réseau mobile (ORM) donné. L’une des limitation est donc qu’e ’une carte
+de SIM ne correspond pas forcément à une personne :
+
+-   1 personne -&gt; 0 carte de SIM: certaines personnes n’ont pas de
+    carte SIM de l’ORM en question: elles utilisent un autre ORM, il n’
+    y pas de couverture réseau, ou pour des facteurs socio-économique
+    (par exemple la pauvreté ou l’âge)
+-   1 personne -&gt; plusieurs carte de SIM: certaines personnes ont
+    plusieurs carte SIM de différents ORMs (par exemple l’une pour les
+    appels, l’autre pour utiliser internet)
+-   plusieurs personnes -&gt; 1 carte de SIM: certaines personnes
+    partagent leur SIM au sein du foyer
+
+De plus, les données CDRs ne sont générées que pour les utilisateurs
+*actifs*, c’est à dire uniquement quand un abonné passe ou reçoit un
+appel, envoie ou reçoit un SMS ou utilise des données mobiles. Par
+exemple, si un abonné n’utilise que deux fois son téléphone dans la
+journée, il n’y aura que deux localisations dans les données CDR.
+
+<img src="img/tower.png" width="80%" />
+
+Comme les CDRs ne contiennent des informations que si les abonnés sont
+actifs, la précision de la localisation peut varier grandement d’un
+abonné à l’autre. Par exemple, la personne (1) sur le graphique
+ci-dessous est actifs tous les jours si bien qu’il peut être localisé
+chaque jour. Par contre, la personne 2 n’est active que le lundi et le
+vendredi: les CDRs ne contiennent aucune information sur sa localisation
+les autres jours.
 
 <img src="img/time_resolution.png" alt="La résolution temporelle des CDRs de chaque abonné dépend de sa fréquence d'utilisation du réseau mobile." width="80%" />
 <p class="caption">
@@ -74,26 +86,156 @@ La résolution temporelle des CDRs de chaque abonné dépend de sa
 fréquence d’utilisation du réseau mobile.
 </p>
 
+De plus, la précision géographique des CDRs dépends de la distribution
+des antennes relais: la localisation d’un abonné ne se fait qu’au niveau
+de l’antenne relais. Dans certaines villes, on peut compter une antenne
+relais tous les 200 mètres. Dans les zones rurales, il peut n’ y en
+avoir que une pour des dizaine de kilomètres carrés. La précision
+géographique dépend donc de la distribution des antennes relais à
+travers le territoire.
+
 <img src="img/spatial_resolution.png" alt="La résolution spatiale des CDRs dépend dépend de la distribution géographique des antennes relais." width="30%" />
 <p class="caption">
 La résolution spatiale des CDRs dépend dépend de la distribution
 géographique des antennes relais.
 </p>
 
-De la données brut (CDRs) à un indicateur de mobilité: Aperçu du processus
---------------------------------------------------------------------------
+En dernier lieu, un appel ou un SMS ne va pas forcément être acheminé
+par l’antenne relais la plus proche: le traffic peut être réorienté vers
+une autre antenne si la plus proche n’a pas la capacité de la gérer.
 
-Le schéma ci-dessous présente les étapes clés du processus. Flowminder a
-fourni à Africell des requêtes SQL qui produisent les agrégats CDR à
-partir des données CDR brutes. Bien que ces agrégats n’exposent aucune
-information sur les abonnés individuels, ils contiennent des valeurs qui
-peuvent être considérées comme commercialement sensibles, y compris le
-nombre d’abonnés vus dans une région. En traitant les données et en
-combinant plusieurs agrégats, nous pouvons produire des indicateurs CDR
-qui ne contiennent aucune information commercialement sensible. Une fois
-que les indicateurs CDR ont été produits, ils sont conçus pour être
-partagés en externe avec d’autres parties prenantes, qui peuvent les
-utiliser dans leur propres analyses.
+Le traitement des données CDRs, un maillon de la chaîne d’information
+---------------------------------------------------------------------
+
+Les donnée CDR sont utiles qu’une fois comprise comme un des nombreux
+maillons de la chaìne d’information. Le diagramme suivant l’illustre
+sous la forme d’un cycle.
+
+<img src="img/value_chain.png" alt="Cycle de valeurs des données CDRs" width="80%" />
+<p class="caption">
+Cycle de valeurs des données CDRs
+</p>
+
+Tout commence avec un besoin d’information. Dans le cas présent, la Task
+Force Présidentielle demande des informations sur la mobilité de la
+population afin de disposer d’évaluer l’efficacité des mesures pour
+contenir la Covid-19.
+
+Les opérateurs de réseaux mobiles disposent de données bruts, les CDRs,
+qui doivent être traitées de façon sécurisées tout en préservant la
+confidentialité des données des abonnés. Le résultats de ce traitement
+sont des agrégats et des indicateurs de mobilité.
+
+Ceux-ci doivent ensuite être mis en perspective avec des données
+tierces, ne serait-ce que la délimitation des zones de santés. Une fois
+ces résultats intermédiaire produits, ils doivent être interprété et
+visualisé afin d’en extraire les messages clés. Une connaissance fine du
+contexte est requise pour ce faire. En dernier lieu, ces visualisations
+et messages doivent parvenir aux preneurs de décisions de façon
+transparente et sans occulter les limitations de ces résultats. Ils ne
+seront que l’un des nombreux paramètres pris en compte par les preneurs
+de décision. Ces derniers seront en mesures de préciser leurs besoins
+d’information afin que le processus décrit ici se répète, améliorant
+ainsi la qualité des informations qu’ils reçoivent.
+
+Des CDRs à un indicateur du nombre d’abonnés actifs dans chaque zone de santé
+-----------------------------------------------------------------------------
+
+Flowminder a fourni à Africell des requêtes SQL pour qui produisent les
+agrégats CDR à partir des données CDR brutes. Bien que ces agrégats
+n’exposent aucune information sur les abonnés individuels, ils
+contiennent des informations qui peuvent être considérées comme
+commercialement sensibles, y compris le nombre d’abonnés vus dans une
+région. En traitant les données et en combinant plusieurs agrégats, nous
+pouvons produire des indicateurs de mobilité qui ne contiennent aucune
+information commercialement sensible.
+
+Nous présentons ci-deouss les étapes principales du processus.
+
+### Étape 1: Africell produit l’agrégat ‘nombre\_d’abonnés\_par\_zone\_de\_santé\_par\_jour’.
+
+*Données requises*:
+
+-   Données CDR avec les champs *msisdn*, *date*, *localité* (ces
+    données sont uniquement vue par Africell, personne d’autre n’y a
+    accès)
+-   Fichier géographique (par exemple un *shapefile*) des zones de santé
+
+La table ci-dessous donne un exemple d’un fichier de CDR pour les appels
+et les sms. Les six champs de données sont:
+
+-   MSISDN: l’identifiant de l’abonné qui initie l’appel ou le sms
+    (\*Mobile Station International Subscriber Directory Number").
+-   MSISDN\_COUNTERPART: l’identifiant de l’abonné qui reçoit l’appel ou
+    le sms
+-   CELL\_ID: l’identifiant de la cell par lequel l’appel a été initié
+    (source)
+-   REGION: la région géographique
+-   EVENT\_TYPE: appel (*voice*) ou sms
+-   TIMESTAMP: la date et l’heure (horodatage)
+
+<img src="img/cdr.png" alt="Exemple de données CDRs (les chiffres montrés ci-dessus sont faut)" width="80%" />
+<p class="caption">
+Exemple de données CDRs (les chiffres montrés ci-dessus sont faut)
+</p>
+
+Et ceci est la carte des zones de santé:
+
+<img src="img/hz.png" alt="Zones de santé en RDC " width="30%" />
+<p class="caption">
+Zones de santé en RDC
+</p>
+
+La requête SQL est disponible
+[ici](https://github.com/Flowminder/COVID-19/blob/d25c51841584dcedacf1c074ce80ead0e927890a/count_subscribers.sql#L5)
+et reproduite ci-dessous:
+
+    CREATE TABLE count_subscribers_per_locality_per_day AS (
+
+        SELECT * FROM (
+            SELECT calls.call_date AS visit_date,
+                cells.locality AS locality,
+                count(DISTINCT msisdn) AS subscriber_count
+            FROM calls
+            INNER JOIN cells
+                ON calls.location_id = cells.cell_id
+            WHERE calls.call_date >= '2020-02-01'
+                AND calls.call_date <= CURRENT_DATE
+            GROUP BY visit_date, locality
+        ) AS grouped
+        WHERE grouped.subscriber_count > 15
+
+    );
+
+*Résultat*: Un tableau contenant les colonnes date, zone de santé,
+nombre de MSISDN uniques. Voir l’exemple ci-dessous, qui contient de
+fausses données. Cette tableau n’est vu que par Africell et Flowminder.
+
+### Étape 2: Convertir le nombre d’abonnés en pourcentage par rapport au nombre médian pendant la période référence.
+
+Cela empêche la divulgation d’informations commercialement sensibles sur
+le nombre d’abonné tout en permettant toujours de transmettre des
+informations précieuses et pertinentes.
+
+Nous considérons la période de référence comme la période de quatre
+semaines précédant immédiatement l’introduction de tout restrictions de
+mobilité du gouvernement. Voir l’exemple ci-dessous, qui contient de
+fausses données.
+
+Étape 3: Ces informations sont ensuite présentées graphiquement.
+Examiner comment le pourcentage relatif d’abonnés dans une localité a
+changé, pendant et après les périodes où des restrictions de mobilité
+sont en place, indique l’effet que les restrictions ont. Nous présentons
+plus bas le code requis pour cette visualisation.
+
+Africell a exécuté les requêtes SQL *open-source* de Flowminder afin de
+produire des agrégats de mobilité utilisés plus tard par Flowminder pour
+dériver les indicateurs de mobilité que nous visualiserons ci-dessous.
+Les dépôt GitHub où sont stockées les requêtes SQL est disponible à [ce
+lien](https://github.com/Flowminder/COVID-19/tree/c9b81d2af6404af2a5c78f0b71bcee9dcc867279).
+
+Visualiser les indices de mobilité
+----------------------------------
 
     presence_or=read.csv("data/africell/afri_pres_kin_norm.csv") # read the csv file
 
