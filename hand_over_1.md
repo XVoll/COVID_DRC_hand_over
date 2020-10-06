@@ -168,6 +168,28 @@ Zones de santé en RDC
 
 <img src="img/timeline_3.png" width="70%" />
 
+    library(lubridate)                  # package to handle dates
+    presence=presence%>%
+      mutate(wdays=wday(DATE,           # wday is a function taking the DATE as input ...
+                        label = T,      # to transform a date in the day of the week, label=True -> day in word 
+                        week_start=1),  # and the week start on the Monday
+             weekdays_binary=ifelse(wdays=="Sun","dimanche","lundi à samedi") # create a binary variable: either "Sunday" or "Monday to Saturday"
+             ) 
+
+    g=g+
+      geom_point(data = presence%>%
+                   filter(name=="Gombe"),
+                 aes(x = DATE, 
+                     y = pres_norm, 
+                     group=name, 
+                     shape=weekdays_binary),
+                 size=2.5)+
+      scale_shape_manual(values=c(16, 1))
+
+    g
+
+<img src="img/timeline_4.png" width="70%" />
+
 [1] Ce travail a été réalisé avec le soutien financier de la Division
 Sécurité Humaine du Département Fédéral des Affaires Étrangères de la
 Confédération Suisse et du Programme de Matrice de Suivi de Déplacement
