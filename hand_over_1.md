@@ -80,7 +80,7 @@ chaque jour. Par contre, la personne 2 n’est active que le lundi et le
 vendredi: les CDRs ne contiennent aucune information sur sa localisation
 les autres jours.
 
-<img src="img/time_resolution.png" width="80%" />
+<img src="img/time_resolution.PNG" width="80%" />
 
 De plus, la précision géographique des CDRs dépends de la distribution
 des antennes relais: la localisation d’un abonné ne se fait qu’au niveau
@@ -212,7 +212,7 @@ systeme.
 nombre de MSISDN uniques. Voir l’exemple ci-dessous, qui contient de
 fausses données. Ce tableau n’est vu que par Africell et Flowminder.
 
-<img src="img/presence_aggregat.png" width="50%" />
+<img src="img/presence_aggregat.PNG" width="50%" />
 
 ### Étape 2: Convertir le nombre d’abonnés en pourcentage par rapport au nombre médian pendant la période référence.
 
@@ -227,7 +227,7 @@ fausses données.
 
 La période de réference et d’analyse est résumée sur le schema suivant.
 
-<img src="img/timeline.png" width="50%" />
+<img src="img/timeline.PNG" width="50%" />
 
 *Résultat*: Un tableau contenant les colonnes date, zone de santé, le
 nombre de MSISDN uniques exprimé en % changement par rapport à la
@@ -237,7 +237,7 @@ données.
 Par exemple, la ligne 2 signale que à la Gombe le 1er janvier 2020, il y
 avait 10% de plus de MSISDN uniques que durant la période de référence.
 
-<img src="img/presence_perc.png" width="50%" />
+<img src="img/presence_perc.PNG" width="50%" />
 
 Sous réserve de l’autorisation explicite de Africell, ce tableau peut
 être vu par des tierces parties.
