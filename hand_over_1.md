@@ -476,6 +476,40 @@ Et clarifions le noms des axes.
 
 <img src="img/timeline_5.png" width="100%" />
 
+Identifions quelques anomalies dans la série.
+
+Et ajoutons les sur le graphique.
+
+    g=g+
+      geom_point(data =presence%>%
+                   filter(name=="Gombe",
+                          DATE %in%events$date),                       
+                 aes(x = DATE, 
+                     y = pres_norm),
+                 shape=1,
+                 size=3,
+                 colour="#C11D1D")+
+      geom_text(data=events%>%
+                  left_join(presence%>%
+                   filter(name=="Gombe",
+                          DATE %in%events$date),
+                            by=c("date"="DATE")), # lettering of the events   
+                aes(x=date,
+                    y=pres_norm,
+                    label=letters),
+                colour="#C11D1D",
+                vjust=1.5)
+
+    g
+
+<img src="img/timeline_6.png" width="100%" /> Ls événements suivants
+ressortent:
+
+-   A: Match de foot de Ligue I, DCMP vs RCK (19 février)
+-   B: Fête nationale (30 juin)
+-   C: Manifestation liée à la CENI (9 juillet)
+-   D: Manifestation liée à la CENI (13 juillet)
+
 ### Etape 4: interpréter les résultats
 
 *Lecture du graphique* Le nombre d’abonnés fréquentant la Gombe a décru
@@ -486,13 +520,18 @@ rebondir suite à la fin du confinement le 29 juin à des niveaux en
 semaine comparable à celui d’un samedi normal. La trajectoire de retour
 à la normale se poursuit sur les mois de juillets à septembre.
 
-Les mesures ont rapidement eu un impact important et durable sur la
-fréquentation de la Gombe: moins d’abonnés s’y trouvent pendant une même
-journée. Ceci a pu limiter la circulation du virus, mais a pu
-occasionner une baisse de la fréquentation des divers commerces de la
-Gombe et donc une baisse de l’activité économique. Les abonnés dont les
-moyens de subsistance dépendent de leur présence à la Gombe ou de celle
-de clients peuvent avoir subi des pertes de revenus importantes.
+*Interprétation* Les mesures ont rapidement eu un impact important et
+durable sur la fréquentation de la Gombe: moins d’abonnés s’y trouvent
+pendant une même journée. Ceci a pu limiter la circulation du virus,
+mais a pu occasionner une baisse de la fréquentation des divers
+commerces de la Gombe et donc une baisse de l’activité économique. Les
+abonnés dont les moyens de subsistance dépendent de leur présence à la
+Gombe ou de celle de clients peuvent avoir subi des pertes de revenus
+importantes.
+
+Suite au déconfinement, un retour progressif à la normal s’opère.
+Néanmoins, près de trois mois après la fin du confinement, l’indice de
+fréquentation de la Gombe n’est toujours pas de retour à la normale.
 
 [1] Ce travail a été réalisé avec le soutien financier de la Division
 Sécurité Humaine du Département Fédéral des Affaires Étrangères de la
