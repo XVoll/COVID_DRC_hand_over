@@ -80,11 +80,7 @@ chaque jour. Par contre, la personne 2 n’est active que le lundi et le
 vendredi: les CDRs ne contiennent aucune information sur sa localisation
 les autres jours.
 
-<img src="img/time_resolution.png" alt="La résolution temporelle des CDRs de chaque abonné dépend de sa fréquence d'utilisation du réseau mobile." width="80%" />
-<p class="caption">
-La résolution temporelle des CDRs de chaque abonné dépend de sa
-fréquence d’utilisation du réseau mobile.
-</p>
+<img src="img/time_resolution.png" width="80%" />
 
 De plus, la précision géographique des CDRs dépends de la distribution
 des antennes relais: la localisation d’un abonné ne se fait qu’au niveau
@@ -161,6 +157,13 @@ Nous présentons ci-deouss les étapes principales du processus.
     accès)
 -   Fichier géographique (par exemple un *shapefile*) des zones de santé
 
+Ceci est la carte des zones de santé:
+
+<img src="img/hz.png" alt="Zones de santé en RDC " width="30%" />
+<p class="caption">
+Zones de santé en RDC
+</p>
+
 La table ci-dessous donne un exemple d’un fichier de CDR pour les appels
 et les sms. Les six champs de données sont:
 
@@ -170,20 +173,14 @@ et les sms. Les six champs de données sont:
     le sms
 -   CELL\_ID: l’identifiant de la cell par lequel l’appel a été initié
     (source)
--   REGION: la région géographique
+-   REGION: la région géographique définie selon les régions commerciale
+    de chaque ORM
 -   EVENT\_TYPE: appel (*voice*) ou sms
 -   TIMESTAMP: la date et l’heure (horodatage)
 
 <img src="img/cdr.png" alt="Exemple de données CDRs (les chiffres montrés ci-dessus sont faut)" width="80%" />
 <p class="caption">
 Exemple de données CDRs (les chiffres montrés ci-dessus sont faut)
-</p>
-
-Et ceci est la carte des zones de santé:
-
-<img src="img/hz.png" alt="Zones de santé en RDC " width="30%" />
-<p class="caption">
-Zones de santé en RDC
 </p>
 
 La requête SQL est disponible
@@ -207,9 +204,18 @@ et reproduite ci-dessous:
 
     );
 
+Africell a classifier les antennes de relais en fonction des zones de
+santé et a adapté la requête SQL ci-dessus aux particularité de son
+systeme.
+
 *Résultat*: Un tableau contenant les colonnes date, zone de santé,
 nombre de MSISDN uniques. Voir l’exemple ci-dessous, qui contient de
-fausses données. Cette tableau n’est vu que par Africell et Flowminder.
+fausses données. Ce tableau n’est vu que par Africell et Flowminder.
+
+<img src="img/presence_aggregat.png" alt="(les chiffres montrés ci-dessus sont faut)" width="50%" />
+<p class="caption">
+(les chiffres montrés ci-dessus sont faut)
+</p>
 
 ### Étape 2: Convertir le nombre d’abonnés en pourcentage par rapport au nombre médian pendant la période référence.
 
@@ -222,20 +228,35 @@ semaines précédant immédiatement l’introduction de tout restrictions de
 mobilité du gouvernement. Voir l’exemple ci-dessous, qui contient de
 fausses données.
 
-Étape 3: Ces informations sont ensuite présentées graphiquement.
+La période de réference et d’analyse est résumée sur le schema suivant.
+
+<img src="img/timeline.png" alt="(les chiffres montrés ci-dessus sont faut)" width="50%" />
+<p class="caption">
+(les chiffres montrés ci-dessus sont faut)
+</p>
+
+*Résultat*: Un tableau contenant les colonnes date, zone de santé, le
+nombre de MSISDN uniques exprimé en % changement par rapport à la
+période de référence. Voir l’exemple ci-dessous, qui contient de fausses
+données.
+
+Par exemple, la ligne 2 signale que à la Gombe le 1er janvier 2020, il y
+avait 10% de plus de MSISDN uniques que durant la période de référence.
+
+<img src="img/presence_perc.png" alt="(les chiffres montrés ci-dessus sont faut)" width="50%" />
+<p class="caption">
+(les chiffres montrés ci-dessus sont faut)
+</p>
+
+Sous réserve de l’autorisation explicite de Africell, ce tableau peut
+être vu par des tierces parties.
+
+### Étape 3: Visualiser le nombre d’abonnés au cours du temps
+
 Examiner comment le pourcentage relatif d’abonnés dans une localité a
 changé, pendant et après les périodes où des restrictions de mobilité
 sont en place, indique l’effet que les restrictions ont. Nous présentons
-plus bas le code requis pour cette visualisation.
-
-Africell a exécuté les requêtes SQL *open-source* de Flowminder afin de
-produire des agrégats de mobilité utilisés plus tard par Flowminder pour
-dériver les indicateurs de mobilité que nous visualiserons ci-dessous.
-Les dépôt GitHub où sont stockées les requêtes SQL est disponible à [ce
-lien](https://github.com/Flowminder/COVID-19/tree/c9b81d2af6404af2a5c78f0b71bcee9dcc867279).
-
-Visualiser les indices de mobilité
-----------------------------------
+ci-dessous le code requis pour cette visualisation.
 
     presence_or=read.csv("data/africell/afri_pres_kin_norm.csv") # read the csv file
 
