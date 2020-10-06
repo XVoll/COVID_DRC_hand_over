@@ -80,6 +80,8 @@ chaque jour. Par contre, la personne 2 n’est active que le lundi et le
 vendredi: les CDRs ne contiennent aucune information sur sa localisation
 les autres jours.
 
+    knitr::include_graphics("img/time_resolution.png")
+
 <img src="img/time_resolution.png" width="80%" />
 
 De plus, la précision géographique des CDRs dépends de la distribution
