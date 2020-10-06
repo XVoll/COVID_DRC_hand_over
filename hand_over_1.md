@@ -42,7 +42,7 @@ Bref aperçu des données CDRs
 ----------------------------
 
 Les données CDRs sont probablement la meilleure source d’information sur
-la mobilité de la population en RDC. Leurs principaux avantages de ces
+la mobilité de la population en RDC. Le principaux avantages de ces
 données sont:
 
 -   d’être générées automatiquement.
@@ -56,44 +56,48 @@ données sont:
 
 Néanmoins, les données CDRs ne donnent qu’un aperçu de la mobilité de la
 population car elles ne portent que sur les abonnés d’un opérateur de
-réseau mobile (ORM) donné. L’une des limitation est donc qu’e ’une carte
-de SIM ne correspond pas forcément à une personne :
+réseau mobile (ORM) donné. L’une des limitation est donc qu’une carte
+SIM ne correspond pas forcément à une personne et vice-versa :
 
--   1 personne, mais 0 carte SIM: certaines personnes n’ont pas de carte
-    SIM de l’ORM en question: elles utilisent un autre ORM, il n’ y pas
-    de couverture réseau, ou pour des facteurs socio-économique (par
-    exemple la pauvreté ou l’âge)
+-   1 personne, mais pas de carte SIM: certaines personnes n’ont pas de
+    carte SIM de l’ORM en question: elles utilisent un autre ORM, il n’
+    y pas de couverture réseau, ou elle n’y ont pas accès pour des
+    raisons d’ordre socio-économique ou autre (par exemple la pauvreté
+    ou le grand âge);
 -   1 personne, mais plusieurs cartes SIM: certaines personnes ont
     plusieurs carte SIM de différents ORMs (par exemple l’une pour les
-    appels, l’autre pour utiliser internet)
--   plusieurs personnes, mais 1 carte SIM: certaines personnes partagent
-    leur carte SIM, par exemple au sein du même foyer.
+    appels, l’autre pour utiliser internet);
+-   plusieurs personnes, mais une seule carte SIM: certaines personnes
+    partagent leur carte SIM, par exemple au sein du même foyer.
 
-De plus, les données CDRs ne sont générées que pour les utilisateurs
+Les données CDRs ne sont donc pas forcément représentative de la
+population.
+
+De plus, les données CDRs ne sont générées que par les utilisateurs
 *actifs*, c’est à dire uniquement quand un abonné passe ou reçoit un
 appel, envoie ou reçoit un SMS ou utilise des données mobiles. Par
 exemple, si un abonné n’utilise que deux fois son téléphone dans la
-journée, il n’y aura que deux localisations dans les données CDR.
+journée, il n’y aura que deux localisations dans les données CDRs.
 
 <img src="img/tower.png" width="80%" />
 
 Comme les CDRs ne contiennent des informations que si les abonnés sont
 actifs, la précision de la localisation peut varier grandement d’un
 abonné à l’autre. Par exemple, la personne (1) sur le graphique
-ci-dessous est actifs tous les jours si bien qu’il peut être localisé
+ci-dessous est active tous les jours si bien qu’il peut être localisé
 chaque jour. Par contre, la personne 2 n’est active que le lundi et le
 vendredi: les CDRs ne contiennent aucune information sur sa localisation
 les autres jours.
 
 <img src="img/time_resolution.PNG" width="80%" />
 
-De plus, la précision géographique des CDRs dépends de la distribution
-des antennes relais: la localisation d’un abonné ne se fait qu’au niveau
-de l’antenne relais. Dans certaines villes, on peut compter une antenne
-relais tous les 200 mètres. Dans les zones rurales, il peut n’ y en
-avoir que une pour des dizaine de kilomètres carrés. La précision
-géographique dépend donc de la distribution des antennes relais à
-travers le territoire.
+Ajoutons que la précision géographique des CDRs dépend de la
+distribution des antennes relais vu que la localisation d’un abonné ne
+se fait qu’au niveau de l’antenne relais. Dans certaines villes, on peut
+compter une antenne relais tous les 200 mètres. Dans les zones rurales,
+il peut n’y en avoir qu’une pour des dizaines de kilomètres carrés. La
+précision géographique dépend donc de la distribution des antennes
+relais à travers le territoire.
 
 <img src="img/spatial_resolution.png" width="30%" />
 
@@ -104,7 +108,7 @@ une autre antenne si la plus proche n’a pas la capacité de la gérer.
 Confidentialité des données et protection de la sphère privée
 -------------------------------------------------------------
 
-Aucune donée individuelle ne quitte le territoire de la RDC.
+Aucune donnée individuelle ne quitte le territoire de la RDC.
 
 Aucune donée individuelle ne quitte le contrôle de Africell RDC. Les
 données sont traitées par Africell RDC sur leur installation et derrière
