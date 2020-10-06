@@ -59,15 +59,15 @@ population car elles ne portent que sur les abonnés d’un opérateur de
 réseau mobile (ORM) donné. L’une des limitation est donc qu’e ’une carte
 de SIM ne correspond pas forcément à une personne :
 
--   1 personne -&gt; 0 carte de SIM: certaines personnes n’ont pas de
-    carte SIM de l’ORM en question: elles utilisent un autre ORM, il n’
-    y pas de couverture réseau, ou pour des facteurs socio-économique
-    (par exemple la pauvreté ou l’âge)
--   1 personne -&gt; plusieurs carte de SIM: certaines personnes ont
+-   1 personne, mais 0 carte SIM: certaines personnes n’ont pas de carte
+    SIM de l’ORM en question: elles utilisent un autre ORM, il n’ y pas
+    de couverture réseau, ou pour des facteurs socio-économique (par
+    exemple la pauvreté ou l’âge)
+-   1 personne, mais plusieurs cartes SIM: certaines personnes ont
     plusieurs carte SIM de différents ORMs (par exemple l’une pour les
     appels, l’autre pour utiliser internet)
--   plusieurs personnes -&gt; 1 carte de SIM: certaines personnes
-    partagent leur SIM au sein du foyer
+-   plusieurs personnes, mais 1 carte SIM: certaines personnes partagent
+    leur carte SIM, par exemple au sein du même foyer.
 
 De plus, les données CDRs ne sont générées que pour les utilisateurs
 *actifs*, c’est à dire uniquement quand un abonné passe ou reçoit un
@@ -132,10 +132,39 @@ de décision. Ces derniers seront en mesures de préciser leurs besoins
 d’information afin que le processus décrit ici se répète, améliorant
 ainsi la qualité des informations qu’ils reçoivent.
 
+Confidentialité des données et protection de la sphère privée
+-------------------------------------------------------------
+
+Aucune donée individuelle ne quitte le territoire de la RDC.
+
+Aucune donée individuelle ne quitte le contrôle de Africell RDC. Les
+données sont traitées par Africell RDC sur leur installation et derrière
+leur pare-feu, aucune donnée de niveau individuel ne quitte jamais
+l’installation de Africell RDC.
+
+Aucune information personnellement identifiable, telle que l’identité,
+les données démographiques, l’emplacement, les contacts ou les
+mouvements d’un individu, n’est à aucun moment mise à la disposition du
+gouvernement ou de tout autre tierce partie.
+
+Tous les résultats sont agrégées (par exemple, la densité d’abonnés dans
+une municipalité donnée), ce qui signifie qu’ils ne contiennent aucune
+information sur les abonnés individuels. Faible résolution spatiale et
+temporelle: le nombre de personnes dans une zone de santé donnée sur une
+journée donnée est exprimé en % de la normale. Les zones de moins de 15
+abonnés sont d’ailleurs filtrées avant même le début du traitement des
+données à Africell RDC. Ces données sont entièrement anonymisées.
+
+Cette approche est conforme au Règlement général sur la protection des
+données de l’Union Européenne (EU RGPD 2016/679)
+
+Le code utilisé pour produire les résultats est en accès libre sur
+GitHub pour que tout le monde puisse le consulter.
+
 Des CDRs à un indicateur du nombre d’abonnés actifs dans chaque zone de santé
 -----------------------------------------------------------------------------
 
-Flowminder a fourni à Africell des requêtes SQL pour qui produisent les
+Flowminder a fourni à Africell des requêtes SQL pour produire des
 agrégats CDR à partir des données CDR brutes. Bien que ces agrégats
 n’exposent aucune information sur les abonnés individuels, ils
 contiennent des informations qui peuvent être considérées comme
@@ -389,6 +418,33 @@ Identifions les dimanches.
 <img src="img/timeline_4.png" width="70%" />
 
 Ajoutons des dates clés.
+
+    # key dates Gombe #####
+    events <- data.frame(
+      date = c(
+        lubridate::as_date("2020-03-18"), 
+        lubridate::as_date("2020-04-06"),
+        lubridate::as_date("2020-06-29")
+      ),
+      label = 1:3,
+      type = c(
+        "Premières mesures annoncées ",
+        "Début du confinement de la Gombe ",
+        "Déconfinement de la Gombe"
+      ),
+      vjust = c(0, 0, 0)
+    ) %>%
+      mutate(index = paste0(label, ") ", type))
+    dateCaption <- stringr::str_wrap(paste0("Dates clés: ", paste(events$index, collapse = "")), 100)
+
+    # key dates lines Kinshasa #####
+    key_dates_lines=geom_vline(data = events, 
+                                   aes(xintercept = date), linetype = "dashed", colour = "grey")
+
+    key_dates_labels=geom_label(
+      data = events, aes(x = date, y = 15, label = label, vjust = vjust),
+      label.r = unit(0, "mm"), label.size = unit(0, "mm"), fill = "#e9e3da"
+    )
 
 Et clarifions le noms des axes.
 
