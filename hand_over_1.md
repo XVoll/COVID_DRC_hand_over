@@ -80,8 +80,6 @@ chaque jour. Par contre, la personne 2 n’est active que le lundi et le
 vendredi: les CDRs ne contiennent aucune information sur sa localisation
 les autres jours.
 
-    knitr::include_graphics("img/time_resolution.png")
-
 <img src="img/time_resolution.png" width="80%" />
 
 De plus, la précision géographique des CDRs dépends de la distribution
@@ -214,10 +212,7 @@ systeme.
 nombre de MSISDN uniques. Voir l’exemple ci-dessous, qui contient de
 fausses données. Ce tableau n’est vu que par Africell et Flowminder.
 
-<img src="img/presence_aggregat.png" alt="(les chiffres montrés ci-dessus sont faux)" width="50%" />
-<p class="caption">
-(les chiffres montrés ci-dessus sont faux)
-</p>
+<img src="img/presence_aggregat.png" width="50%" />
 
 ### Étape 2: Convertir le nombre d’abonnés en pourcentage par rapport au nombre médian pendant la période référence.
 
@@ -242,10 +237,7 @@ données.
 Par exemple, la ligne 2 signale que à la Gombe le 1er janvier 2020, il y
 avait 10% de plus de MSISDN uniques que durant la période de référence.
 
-<img src="img/presence_perc.png" alt="(les chiffres montrés ci-dessus sont faux)" width="50%" />
-<p class="caption">
-(les chiffres montrés ci-dessus sont faux)
-</p>
+<img src="img/presence_perc.png" width="50%" />
 
 Sous réserve de l’autorisation explicite de Africell, ce tableau peut
 être vu par des tierces parties.
