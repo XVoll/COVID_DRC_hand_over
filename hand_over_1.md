@@ -149,7 +149,8 @@ Zones de santé en RDC
                   filter(name=="Gombe"),
                 aes(x = DATE, 
                     y = pres_norm,
-                    group=name))
+                    group=name),
+                colour="#095798")
 
     g
 
@@ -183,7 +184,8 @@ Zones de santé en RDC
                      y = pres_norm, 
                      group=name, 
                      shape=weekdays_binary),
-                 size=2.5)+
+                 size=2.5,
+                colour="#095798")+
       scale_shape_manual(values=c(16, 1))
 
     g
