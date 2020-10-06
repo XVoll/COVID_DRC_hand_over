@@ -502,8 +502,9 @@ Et ajoutons les sur le graphique.
 
     g
 
-<img src="img/timeline_6.png" width="100%" /> Ls événements suivants
-ressortent:
+<img src="img/timeline_6.png" width="100%" />
+
+Les événements suivants ressortent:
 
 -   A: Match de foot de Ligue I, DCMP vs RCK (19 février)
 -   B: Fête nationale (30 juin)
