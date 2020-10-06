@@ -110,7 +110,7 @@ Confidentialité des données et protection de la sphère privée
 
 Aucune donnée individuelle ne quitte le territoire de la RDC.
 
-Aucune donée individuelle ne quitte le contrôle de Africell RDC. Les
+Aucune donnée individuelle ne quitte le contrôle de Africell RDC. Les
 données sont traitées par Africell RDC sur leur installation et derrière
 leur pare-feu, aucune donnée de niveau individuel ne quitte jamais
 l’installation de Africell RDC.
@@ -179,12 +179,14 @@ d’abonnés vus dans une région. En traitant les données et en combinant
 plusieurs agrégats, nous pouvons produire des indicateurs de mobilité
 qui ne contiennent aucune information commercialement sensible.
 
-Nous présentons ci-deouss les étapes principales du processus: 1.
-Africell produit l’agrégat
-‘nombre\_d’abonnés\_par\_zone\_de\_santé\_par\_jour’. 2. Convertir le
-nombre d’abonnés en pourcentage par rapport au nombre médian pendant la
-période référence. 3. Visualiser le nombre d’abonnés au cours du temps
-4. Interpréter les résultats
+Nous présentons ci-deouss les étapes principales du processus:
+
+1.  Africell produit l’agrégat
+    ‘nombre\_d’abonnés\_par\_zone\_de\_santé\_par\_jour’.
+2.  Convertir le nombre d’abonnés en pourcentage de changement par
+    rapport au nombre médian de la période référence.
+3.  Visualiser le nombre d’abonnés au cours du temps
+4.  Interpréter les résultats
 
 ### Étape 1: Africell produit l’agrégat ‘nombre\_d’abonnés\_par\_zone\_de\_santé\_par\_jour’.
 
@@ -244,9 +246,9 @@ systeme.
 nombre de MSISDN uniques. Voir l’exemple ci-dessous, qui contient de
 fausses données. Ce tableau n’est vu que par Africell et Flowminder.
 
-<img src="img/presence_aggregat.PNG" width="50%" />
+<img src="img/presence_aggregat.PNG" width="30%" />
 
-### Étape 2: Convertir le nombre d’abonnés en pourcentage par rapport au nombre médian pendant la période référence.
+### Étape 2: Convertir le nombre d’abonnés en pourcentage de changement par rapport au nombre médian de la période référence.
 
 Cela empêche la divulgation d’informations commercialement sensibles sur
 le nombre d’abonné tout en permettant toujours de transmettre des
@@ -269,7 +271,7 @@ données.
 Par exemple, la ligne 2 signale que à la Gombe le 1er janvier 2020, il y
 avait 10% de plus de MSISDN uniques que durant la période de référence.
 
-<img src="img/presence_perc.PNG" width="50%" />
+<img src="img/presence_perc.PNG" width="30%" />
 
 Sous réserve de l’autorisation explicite de Africell, ce tableau peut
 être vu par des tierces parties.
