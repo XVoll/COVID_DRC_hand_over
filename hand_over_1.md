@@ -186,11 +186,27 @@ Zones de santé en RDC
                      shape=weekdays_binary),
                  size=2.5,
                 colour="#095798")+
-      scale_shape_manual(values=c(16, 1))
+      scale_shape_manual(values=c(16, 1))+
+      scale_color_manual(values=c("#095798"))
 
     g
 
 <img src="img/timeline_4.png" width="70%" />
+
+    g=g+
+      key_dates_lines  +
+      key_dates_labels +
+      labs(
+        x = "",
+        y = "Pourcentage par rapport à la période de référence",
+        shape= "Jour de la semaine:",
+        subtitle =dateCaption,
+        caption = "Sources de données: Africell RDC"
+      )
+
+    g
+
+<img src="img/timeline_5.png" width="70%" />
 
 [1] Ce travail a été réalisé avec le soutien financier de la Division
 Sécurité Humaine du Département Fédéral des Affaires Étrangères de la
