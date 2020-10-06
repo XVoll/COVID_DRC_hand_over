@@ -13,11 +13,12 @@ brève introduction à R.
 
 Voici plus de matériel du même auteur que le lien précédent:
 
--     [ce tutoriel](https://cengel.github.io/R-data-wrangling/) est une introduction à la manipulation des données,
-
--     [ce tutoriel](https://cengel.github.io/R-spatial/) est une introduction à l'utilisation des données spatiales,
-
--     et celui-ci[https://cengel.github.io/R-data-viz/] à la visualisation des données
+-   ce [tutoriel](https://cengel.github.io/R-data-wrangling/) est une
+    introduction à la manipulation des données,
+-   ce [tutoriel](https://cengel.github.io/R-spatial/) est une
+    introduction à l’utilisation des données spatiales,
+-   et [celui-ci](https://cengel.github.io/R-data-viz/) à la
+    visualisation des données
 
 Introduction
 ------------
@@ -128,9 +129,6 @@ utiliser dans leur propres analyses.
 
     ## [1] 519  11
 
-    ## png 
-    ##   2
-
     plot(hz_or)
 
 <img src="img/hz.png" alt="Zones de santé en RDC " width="30%" />
@@ -152,20 +150,23 @@ Zones de santé en RDC
                 aes(x = DATE, 
                     y = pres_norm,
                     group=name))
+
     g
 
-![](hand_over_1_files/figure-markdown_strict/gg-base-1.png)
+<img src="img/timeline_1.png" width="70%" />
 
     g=g+scale_x_date(date_breaks = "month",
                      date_labels = "%B")
+
     g
 
-![](hand_over_1_files/figure-markdown_strict/gg-x-axis-1.png)
+<img src="img/timeline_2.png" width="70%" />
 
     g=g+geom_hline(yintercept = 0, colour = "grey50") 
+
     g
 
-![](hand_over_1_files/figure-markdown_strict/gg-horizontal-line-1.png)
+<img src="img/timeline_3.png" width="70%" />
 
 [1] Ce travail a été réalisé avec le soutien financier de la Division
 Sécurité Humaine du Département Fédéral des Affaires Étrangères de la
