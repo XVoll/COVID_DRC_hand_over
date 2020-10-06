@@ -206,7 +206,7 @@ Zones de santé en RDC
 
     g
 
-<img src="img/timeline_5.png" width="70%" />
+<img src="img/timeline_5.png" width="100%" />
 
 [1] Ce travail a été réalisé avec le soutien financier de la Division
 Sécurité Humaine du Département Fédéral des Affaires Étrangères de la
