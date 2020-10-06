@@ -13,6 +13,11 @@ Ce travail s’inscrit dans le cadre de la collaboration entre la
 Fondation Flowminder, Vodacom Congo et Africell RDC pour soutenir la
 riposte of COVID-19.[1]
 
+Nous donnones l’exemple de la visualisation du nombre d’abonnés à la
+Gombe. Examiner comment le pourcentage relatif d’abonnés dans la Gombe a
+changé, pendant et après les périodes où des restrictions de mobilité
+sont en place, indique l’effet que les restrictions ont.
+
 Prérequis
 ---------
 
@@ -90,11 +95,7 @@ avoir que une pour des dizaine de kilomètres carrés. La précision
 géographique dépend donc de la distribution des antennes relais à
 travers le territoire.
 
-<img src="img/spatial_resolution.png" alt="La résolution spatiale des CDRs dépend dépend de la distribution géographique des antennes relais." width="30%" />
-<p class="caption">
-La résolution spatiale des CDRs dépend dépend de la distribution
-géographique des antennes relais.
-</p>
+<img src="img/spatial_resolution.png" width="30%" />
 
 En dernier lieu, un appel ou un SMS ne va pas forcément être acheminé
 par l’antenne relais la plus proche: le traffic peut être réorienté vers
@@ -107,10 +108,7 @@ Les donnée CDR sont utiles qu’une fois comprise comme un des nombreux
 maillons de la chaìne d’information. Le diagramme suivant l’illustre
 sous la forme d’un cycle.
 
-<img src="img/value_chain.png" alt="Cycle de valeurs des données CDRs" width="80%" />
-<p class="caption">
-Cycle de valeurs des données CDRs
-</p>
+<img src="img/value_chain.png" width="80%" />
 
 Tout commence avec un besoin d’information. Dans le cas présent, la Task
 Force Présidentielle demande des informations sur la mobilité de la
@@ -159,10 +157,7 @@ Nous présentons ci-deouss les étapes principales du processus.
 
 Ceci est la carte des zones de santé:
 
-<img src="img/hz.png" alt="Zones de santé en RDC " width="30%" />
-<p class="caption">
-Zones de santé en RDC
-</p>
+<img src="img/hz.png" width="30%" />
 
 La table ci-dessous donne un exemple d’un fichier de CDR pour les appels
 et les sms. Les six champs de données sont:
@@ -178,10 +173,7 @@ et les sms. Les six champs de données sont:
 -   EVENT\_TYPE: appel (*voice*) ou sms
 -   TIMESTAMP: la date et l’heure (horodatage)
 
-<img src="img/cdr.png" alt="Exemple de données CDRs (les chiffres montrés ci-dessus sont faux)" width="80%" />
-<p class="caption">
-Exemple de données CDRs (les chiffres montrés ci-dessus sont faux)
-</p>
+<img src="img/cdr.png" width="80%" />
 
 La requête SQL est disponible
 [ici](https://github.com/Flowminder/COVID-19/blob/d25c51841584dcedacf1c074ce80ead0e927890a/count_subscribers.sql#L5)
@@ -227,7 +219,7 @@ fausses données.
 
 La période de réference et d’analyse est résumée sur le schema suivant.
 
-<img src="img/timeline.PNG" width="50%" />
+<img src="img/timeline.PNG" width="100%" />
 
 *Résultat*: Un tableau contenant les colonnes date, zone de santé, le
 nombre de MSISDN uniques exprimé en % changement par rapport à la
@@ -244,16 +236,32 @@ Sous réserve de l’autorisation explicite de Africell, ce tableau peut
 
 ### Étape 3: Visualiser le nombre d’abonnés au cours du temps
 
-Examiner comment le pourcentage relatif d’abonnés dans une localité a
-changé, pendant et après les périodes où des restrictions de mobilité
-sont en place, indique l’effet que les restrictions ont. Nous présentons
-ci-dessous le code requis pour cette visualisation.
+Nous présentons ci-dessous le code requis pour cette visualisation. Il
+se base sur deux principaux fichiers:
+
+1.  `afri_pres_kin_norm.csv`: La nombre d’abonnés d’Africell par jour et
+    par zone de santé, calculé à l’étape 2
+2.  `healthzones_adm1.shp`: Le *shapefile* des zones de santés de
+    Kinshasa
+
+Le *shapefile* ne sera ici utilisé que pour recouvrer les noms de chaque
+zone de santé enregistrée dans la table `afri_pres_kin_norm.csv` par un
+identifiant.
+
+Nous commençons pas lire les `afri_pres_kin_norm.csv` dans R avec la
+commande `read.csv`
 
     presence_or=read.csv("data/africell/afri_pres_kin_norm.csv") # read the csv file
+
+Nous inspectons ensuite la dimension de cette table avec `dim`.
 
     dim(presence_or) # montre le nombre de lignes et de colonnes.
 
     ## [1] 7708    3
+
+Il 7708 lignes et 3 colonnes.
+
+Nous prenons connaissance des 5 premières ligne avec `head`.
 
     head(presence_or) # montre les première lignes et de colonnes.
 
@@ -265,6 +273,18 @@ ci-dessous le code requis pour cette visualisation.
     ## 5 relation/10650548 2020-02-01  4.357150
     ## 6 relation/10718886 2020-02-01  6.292042
 
+Nous y voyons les 3 champs:
+
+-   F\_id: un identifiant de la zone de santé que nous pourrons joindre
+    au *shapefile* des zones de santé
+-   DATE: la date
+-   pres\_norm: le compte d’abonné unique par zone de santé exprimé en
+    pourcentage de changement par rapport à la médiane de la période de
+    référence.
+
+Lisons maintenant le *shapefile* des zones de santé grâce à la fonction
+`readOGR` du *package* `rgdal`.
+
     library(rgdal)
     hz_or=readOGR("data/poly/healthzones_adm1.shp")
 
@@ -273,22 +293,33 @@ ci-dessous le code requis pour cette visualisation.
     ## with 519 features
     ## It has 11 fields
 
+La fonction `readOGR` nous informes qu’il y a 519 *features* ce qui
+correspond dans notre cas à 519 zones de santé.
+
+L’objet `hz_or` est combine une suite de polygones, représentant chacun
+une zone de santé, à une table de données dont nous pouvons inspecter le
+noms des champs avec la fonction `names`.
+
     names(hz_or)
 
     ##  [1] "F_id"       "attributio" "boundary"   "health_lev" "name"      
     ##  [6] "ref"        "ref_dhis2"  "source"     "type"       "ADM1_FR"   
     ## [11] "ADM1_PCODE"
 
-    dim(hz_or)
+Nous y retrouvons le champs `F_id` que nous utiliserons pour faire le
+joint avec la table `presence_or`.
 
-    ## [1] 519  11
+Nous pouvons afficher cette carte avec la commande `plot`.
 
     plot(hz_or)
 
-<img src="img/hz.png" alt="Zones de santé en RDC " width="30%" />
-<p class="caption">
-Zones de santé en RDC
-</p>
+<img src="img/hz.png" width="30%" />
+
+Nous joignons maintenant les données de la table du *shapefile* avec la
+table de présence, ne selectionnant que le nom des zones. Ceci est fait
+avec le package `dplyr` et sa fonction `left_join` et `select`. Nous
+transformons également le champs DATE, un character, en format de date
+avec `mutate` appliquant la fonction `as.Date` au champs `DATE`.
 
     library(dplyr)
     presence=presence_or%>%
@@ -296,6 +327,9 @@ Zones de santé en RDC
                   select(F_id,name,ADM1_FR),
                 by="F_id")%>%
       mutate(DATE=as.Date(DATE))
+
+Nous sommes maintenant en mesures filtrer la table pour se concentrer
+sur la Gombe et de donner une première visualisation.
 
     library(ggplot2)
     g=ggplot()+
@@ -310,6 +344,9 @@ Zones de santé en RDC
 
 <img src="img/timeline_1.png" width="70%" />
 
+Specifions que nous souhaitons voir chaque mois identifié sur l’axe des
+horizontal.
+
     g=g+scale_x_date(date_breaks = "month",
                      date_labels = "%B")
 
@@ -317,11 +354,15 @@ Zones de santé en RDC
 
 <img src="img/timeline_2.png" width="70%" />
 
+Ajoutons une ligne de référence horizontale.
+
     g=g+geom_hline(yintercept = 0, colour = "grey50") 
 
     g
 
 <img src="img/timeline_3.png" width="70%" />
+
+Identifions les dimanches.
 
     library(lubridate)                  # package to handle dates
     presence=presence%>%
@@ -346,6 +387,10 @@ Zones de santé en RDC
     g
 
 <img src="img/timeline_4.png" width="70%" />
+
+Ajoutons des dates clés.
+
+Et clarifions le noms des axes.
 
     g=g+
       key_dates_lines  +
