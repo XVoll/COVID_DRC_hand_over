@@ -289,7 +289,10 @@ Nous présentons ci-dessous le code requis pour cette visualisation. Il
 se base sur deux fichiers:
 
 1.  `afri_pres_kin_norm.csv`: La nombre d’abonnés d’Africell par jour et
-    par zone de santé, calculé à l’étape 2
+    par zone de santé, calculé à l’étape 2. Dans l’attente de
+    l’autorisation de partager les données de Africell RDC, ou de
+    Vodacom Congo, nous utilisons les données de google pour l’Afrique
+    du Sud[2]
 2.  `healthzones_adm1.shp`: Le *shapefile* des zones de santés de
     Kinshasa
 
@@ -304,7 +307,8 @@ identifiant.
 Nous commençons pas lire la table `afri_pres_kin_norm.csv` dans R avec
 la commande `read.csv`.
 
-    presence_or=read.csv("data/africell/afri_pres_kin_norm.csv") # read the csv file
+    # presence_or=read.csv("data/africell/afri_pres_kin_norm.csv") # read the csv file
+    presence_or=read.csv("data/fake/google_ZA.csv") # read the csv file
 
 La table `afri_pres_kin_norm.csv` est maintenant chargée dans dans
 l’environnement R et assignée à l’objet `presence_or`, ou le "\_or" est
@@ -314,7 +318,7 @@ Nous inspectons ensuite la dimension de cette table avec `dim`.
 
     dim(presence_or) # montre le nombre de lignes et de colonnes.
 
-    ## [1] 7708    3
+    ## [1] 216   3
 
 La table compte 7708 lignes et 3 colonnes.
 
@@ -322,13 +326,13 @@ Nous prenons connaissance des 6 premières lignes avec `head`.
 
     head(presence_or) # montre les première lignes et de colonnes.
 
-    ##                F_id       DATE pres_norm
-    ## 1 relation/10704911 2020-02-01  3.420011
-    ## 2 relation/10721872 2020-02-01  6.462922
-    ## 3 relation/10720731 2020-02-01  5.479898
-    ## 4 relation/10722139 2020-02-01  5.288341
-    ## 5 relation/10650548 2020-02-01  4.357150
-    ## 6 relation/10718886 2020-02-01  6.292042
+    ##         DATE pres_norm              F_id
+    ## 1 2020-02-15        -2 relation/10713870
+    ## 2 2020-02-16        -6 relation/10713870
+    ## 3 2020-02-17         3 relation/10713870
+    ## 4 2020-02-18         0 relation/10713870
+    ## 5 2020-02-19        -2 relation/10713870
+    ## 6 2020-02-20         1 relation/10713870
 
 Nous y voyons 3 champs:
 
@@ -532,6 +536,9 @@ Les événements suivants ressortent:
 -   C: Manifestation liée à la CENI (9 juillet)
 -   D: Manifestation liée à la CENI (13 juillet)
 
+Avec les données Africell, le graphique final est:
+<img src="img/timeline_6_africell.png" width="100%" />
+
 ### Etape 4: interpréter les résultats
 
 *Lecture du graphique* Le nombre d’abonnés fréquentant la Gombe a décru
@@ -563,3 +570,11 @@ de la mission l’Organisation Mondiale pour les Migrations en RDC. Le
 contenu de cette page relève de la seule responsabilité de la Fondation
 Flowminder et ne reflète pas nécessairement les vues de la Confédération
 Suisse ou de l’Organisation Mondiale pour la Migration.
+
+[2] Le données moyennes de Google pour l’Afrique du Sud sont utilisées.
+La métrique de mobilité selectionnée est le
+`transit_stations_percent_change_from_baseline`, renomée `pres_norm`
+pour l’exercice. Un champs pour l’identifiant `F_id`est ajouté avec la
+valeur “relation/10713870” correspondant à la Gombe. Les données Google
+sont disponible
+(ici)\[<a href="https://www.google.com/covid19/mobility/" class="uri">https://www.google.com/covid19/mobility/</a>\]
